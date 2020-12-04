@@ -23,7 +23,17 @@ def hgt_validation(hgt):
 
 
 def hcl_validation(hcl):
-    return re.match('^#[0-9|a-f]{6}', hcl)
+    #return re.match('^#[0-9|a-f]{6}', hcl)
+    char_list = ['a', 'b', 'c', 'd', 'e', 'f', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    if len(hcl) != 7:
+        return False
+    if hcl[0] != '#':
+        return False
+    for i in range(1, 7):
+        if hcl[i] not in char_list:
+            return False
+    return True
+
 
 
 def ecl_validation(ecl):
@@ -32,7 +42,8 @@ def ecl_validation(ecl):
 
 
 def pid_validation(pid):
-    return re.match("[0-9]{9}", pid)
+    #return re.match("[0-9]{8}[1-9]", pid)
+    return len(pid) == 9 and pid != '000000000'
 
 
 def check_if_passport_valid(passport):
