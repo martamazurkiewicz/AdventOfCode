@@ -6,19 +6,6 @@ def get_all_seats():
         lines[i] = lines[i][0:7], lines[i][7:10]
     return lines
 
-
-def get_seat_with_longest_B_chain(lines):
-    lines.sort(key=lambda element: element[0])
-    longest_B_chains = []
-    for i in range(len(lines)):
-        if lines[i][0] == lines[0][0]:
-            longest_B_chains.append(lines[i])
-        else:
-            break
-    longest_B_chains.sort(key=lambda element: element[1], reverse=True)
-    return longest_B_chains[0]
-
-
 def decode_seat(seat):
     number = []
     for i in range(len(seat)):
@@ -35,14 +22,17 @@ def decode_seat(seat):
 
 
 def get_seat_id(row, col):
-    return row*8+col
+    return int(row*8+col)
 
 
-lines = get_all_seats()
-seat_high = get_seat_with_longest_B_chain(lines)
-print(seat_high)
-seat_high = decode_seat(seat_high)
-print(seat_high)
-print(get_seat_id(seat_high[0], seat_high[1]))
-
+seats = get_all_seats()
+ids = []
+for seat in seats:
+    seat_number = decode_seat(seat)
+    ids.append(get_seat_id(seat_number[0], seat_number[1]))
+ids.sort()
+interval = range(int(ids[0]), int(ids[-1])+1)
+for i in interval:
+    if i not in ids:
+        print(i)
 
